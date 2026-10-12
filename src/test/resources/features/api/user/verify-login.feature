@@ -14,6 +14,7 @@ Feature: API - Verificação de login
     And form field password = user.password
     When method post
     Then status 200
+    * print 'Response: ', response
     * json body = response
     * match body.responseCode == 200
     * match body.message == 'User exists!'
@@ -23,6 +24,7 @@ Feature: API - Verificação de login
     And form field password = 'senha-errada'
     When method post
     Then status 200
+    * print 'Response: ', response
     * json body = response
     * match body.responseCode == 404
     * match body.message == 'User not found!'
@@ -31,6 +33,7 @@ Feature: API - Verificação de login
     Given form field password = user.password
     When method post
     Then status 200
+    * print 'Response: ', response
     * json body = response
     * match body.responseCode == 400
     * match body.message == 'Bad request, email or password parameter is missing in POST request.'
@@ -38,6 +41,7 @@ Feature: API - Verificação de login
   Scenario: DELETE /verifyLogin não é suportado
     When method delete
     Then status 200
+    * print 'Response: ', response
     * json body = response
     * match body.responseCode == 405
     * match body.message == 'This request method is not supported.'

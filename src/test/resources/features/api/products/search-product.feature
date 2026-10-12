@@ -9,6 +9,7 @@ Feature: API - Busca de produtos
     Given form field search_product = '<term>'
     When method post
     Then status 200
+    * print 'Response: ', response
     * json body = response
     * match body.responseCode == 200
     * match body.products == '#[_ > 0]'
@@ -22,6 +23,7 @@ Feature: API - Busca de produtos
   Scenario: POST /searchProduct sem o parâmetro obrigatório
     When method post
     Then status 200
+    * print 'Response: ', response
     * json body = response
     * match body.responseCode == 400
     * match body.message == 'Bad request, search_product parameter is missing in POST request.'

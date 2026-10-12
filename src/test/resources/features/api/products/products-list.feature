@@ -9,6 +9,7 @@ Feature: API - Lista de produtos
     Given path 'productsList'
     When method get
     Then status 200
+    * print 'Response: ', response
     * json body = response
     * match body.responseCode == 200
     * match body.products == '#[_ > 0]'
@@ -27,6 +28,7 @@ Feature: API - Lista de produtos
     Given path 'productsList'
     When method post
     Then status 200
+    * print 'Response: ', response
     * json body = response
     * match body.responseCode == 405
     * match body.message == 'This request method is not supported.'

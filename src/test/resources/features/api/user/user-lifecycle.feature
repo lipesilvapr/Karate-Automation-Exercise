@@ -16,6 +16,7 @@ Feature: API - Ciclo de vida do usuário (CRUD)
     And param email = user.email
     When method get
     Then status 200
+    * print 'Response: ', response
     * json body = response
     * match body.responseCode == 200
     * match body.user.email == user.email
@@ -27,6 +28,7 @@ Feature: API - Ciclo de vida do usuário (CRUD)
     And form fields updated
     When method put
     Then status 200
+    * print 'Response: ', response
     * json body = response
     * match body.responseCode == 200
     * match body.message == 'User updated!'
@@ -35,6 +37,7 @@ Feature: API - Ciclo de vida do usuário (CRUD)
     And param email = user.email
     When method get
     Then status 200
+    * print 'Response: ', response
     * json body = response
     * match body.user.company == 'Updated Corp'
 
@@ -44,6 +47,7 @@ Feature: API - Ciclo de vida do usuário (CRUD)
     And form fields payload
     When method delete
     Then status 200
+    * print 'Response: ', response
     * json body = response
     * match body.responseCode == 200
     * match body.message == 'Account deleted!'
@@ -53,5 +57,6 @@ Feature: API - Ciclo de vida do usuário (CRUD)
     And param email = user.email
     When method get
     Then status 200
+    * print 'Response: ', response
     * json body = response
     * match body.responseCode == 404

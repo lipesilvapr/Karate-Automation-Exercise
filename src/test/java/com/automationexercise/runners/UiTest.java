@@ -12,7 +12,7 @@ class UiTest {
         Results results = RunnerSupport.run(
                 "classpath:features/ui",
                 "target/karate-reports/ui",
-                Integer.getInteger("ui.threads", 2));
+                Integer.getInteger("ui.threads", 1));
         assertEquals(0, results.getFailCount(), results.getErrorMessages());
     }
 }

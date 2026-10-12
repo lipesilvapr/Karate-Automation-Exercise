@@ -13,7 +13,7 @@ Feature: UI - Produtos
   Scenario Outline: Buscar produto por "<term>"
     * input('#search_product', '<term>')
     * click('#submit_search')
-    * waitFor('.features_items h2.title')
+    * waitUntil(".features_items h2.title", "_.textContent.toLowerCase().includes('searched products')")
     * match text('.features_items h2.title') == '#regex (?i)searched products'
     * def results = locateAll('.features_items .product-image-wrapper')
     * assert results.length > 0

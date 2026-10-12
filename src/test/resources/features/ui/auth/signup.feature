@@ -7,7 +7,8 @@ Feature: UI - Cadastro de usuário
 
   @smoke
   Scenario: Cadastro completo com sucesso
-    * def user = karate.merge(read('classpath:data/user-template.json'), { email: '#(data.randomEmail())' })
+    * def template = read('classpath:data/user-template.json')
+    * def user = karate.merge(template, { email: data.randomEmail() })
     * configure afterScenario = cleanup
 
     * call read('classpath:pages/login-page.feature@startSignup') { name: '#(user.name)', email: '#(user.email)' }
