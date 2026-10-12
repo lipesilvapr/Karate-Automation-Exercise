@@ -1,0 +1,40 @@
+name: Karate Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  api:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: maven
+      - run: mvn -B test -Dtest=ApiTest
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: karate-reports-api
+          path: target/karate-reports/api
+
+  ui:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: maven
+      - run: mvn -B test -Dtest=UiTest -Dci=true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: karate-reports-ui
+          path: target/karate-reports/ui
