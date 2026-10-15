@@ -60,3 +60,18 @@ Feature: API - Ciclo de vida do usuário (CRUD)
     * print 'Response: ', response
     * json body = response
     * match body.responseCode == 404
+
+    
+  Scenario: Não permite criar usuário com email já cadastrado
+    # cria o usuário pela primeira vez (helper)
+    * def created = call read('classpath:helpers/create-user.feature')
+    * def user = created.user
+
+    # tenta criar de novo com o mesmo email
+    Given path 'createAccount'
+    And form fields user
+    When method post
+    Then status 200
+    * print 'Response: ', response
+    * json body = response
+    * match body.responseCode == 400
