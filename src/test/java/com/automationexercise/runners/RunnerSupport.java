@@ -20,6 +20,7 @@ final class RunnerSupport {
                 .tags("~@ignore")
                 .reportDir(reportDir)
                 .outputCucumberJson(false)
+                .outputJunitXml(true)
                 .backupReportDir(false);
 
         String tags = System.getProperty("karate.tags");
