@@ -8,6 +8,7 @@ import com.intuit.karate.Runner;
  * <ul>
  *   <li>Ignora cenários marcados com {@code @ignore} (helpers e pages)</li>
  *   <li>Aceita filtro opcional por tag: {@code -Dkarate.tags=@smoke} (vírgula = OU)</li>
+ *   <li>Gera JUnit XML por feature (um testcase por cenário), usado na coleta de métricas</li>
  * </ul>
  */
 final class RunnerSupport {
