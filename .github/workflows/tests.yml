@@ -16,12 +16,18 @@ on:
         type: choice
         options: ["1", "2", "4"]
         default: "1"
+      camada:
+        description: "Quais jobs executar"
+        type: choice
+        options: ["ambos", "api", "ui"]
+        default: "ambos"
 
 permissions:
   contents: read
 
 jobs:
   api:
+    if: ${{ inputs.camada != 'ui' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
@@ -57,6 +63,7 @@ jobs:
           path: target/karate-reports/api
 
   ui:
+    if: ${{ inputs.camada != 'api' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
