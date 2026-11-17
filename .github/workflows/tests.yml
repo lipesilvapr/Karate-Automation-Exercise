@@ -11,6 +11,11 @@ on:
         type: choice
         options: ["true", "false"]
         default: "true"
+      threads:
+        description: "Threads da execução de API (a UI roda sempre com 1)"
+        type: choice
+        options: ["1", "2", "4"]
+        default: "1"
 
 permissions:
   contents: read
@@ -33,15 +38,18 @@ jobs:
           distribution: temurin
           java-version: 17
           cache: ${{ inputs.use_cache != 'false' && 'maven' || '' }}
+      - name: Preparar dependências e compilar (não medido)
+        run: mvn -B test-compile
       - name: Executar testes (medido)
         uses: lipesilvapr/tcc-metricas/.github/actions/measure@main
         with:
           projeto: karate
           camada: api
-          command: mvn -B test -Dtest=ApiTest
+          command: mvn -B test -Dtest=ApiTest -Dapi.threads=${{ inputs.threads || '1' }}
           junit-glob: target/karate-reports/api/*.xml
           expected-tests: "14"
           cache: ${{ inputs.use_cache || 'true' }}
+          threads: ${{ inputs.threads || '1' }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -65,15 +73,18 @@ jobs:
           distribution: temurin
           java-version: 17
           cache: ${{ inputs.use_cache != 'false' && 'maven' || '' }}
+      - name: Preparar dependências e compilar (não medido)
+        run: mvn -B test-compile
       - name: Executar testes (medido)
         uses: lipesilvapr/tcc-metricas/.github/actions/measure@main
         with:
           projeto: karate
           camada: ui
-          command: mvn -B test -Dtest=UiTest -Dci=true
+          command: mvn -B test -Dtest=UiTest -Dci=true -Dui.threads=1
           junit-glob: target/karate-reports/ui/*.xml
           expected-tests: "10"
           cache: ${{ inputs.use_cache || 'true' }}
+          threads: "1"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
