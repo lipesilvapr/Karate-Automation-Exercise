@@ -28,7 +28,7 @@ permissions:
 jobs:
   api:
     if: ${{ inputs.camada != 'ui' }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 30
     steps:
       - name: Info da máquina
@@ -64,7 +64,7 @@ jobs:
 
   ui:
     if: ${{ inputs.camada != 'api' }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 30
     steps:
       - name: Info da máquina
